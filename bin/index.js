@@ -12,12 +12,12 @@ const chalk = require('chalk')
 const figlet = require('figlet')
 
 program
-  .name('pg-cli')
+  .name('pg-cli-demo')
   .usage(`<command> [option]`)
 
 // package.json 中存取了项目的版本号 version
 // 直接使用该属性
-program.version(`pg-cli ${require("../package.json").version}`);
+program.version(`pg-cli-demo ${require("../package.json").version}`);
 
 program
   .command("create <project-name>")
@@ -39,7 +39,7 @@ program
 
 program.on("--help", () => {
   console.log(
-    "\r\n" + figlet.textSync("pg-cli", {
+    "\r\n" + figlet.textSync("pg-cli-demo", {
       font: "3D-ASCII",
       horizontalLayout: 'default',
       verticalLayout: 'default',
@@ -47,7 +47,7 @@ program.on("--help", () => {
       whitespaceBreak: true
     })
   )
-  console.log(` Run ${chalk.cyan('pg-cli <command> --help')} for detailed usage of given command.`)
+  console.log(` Run ${chalk.cyan('pg-cli-demo <command> --help')} for detailed usage of given command.`)
   console.log()
 })
 

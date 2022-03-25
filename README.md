@@ -10,9 +10,9 @@
 [学习来源](https://juejin.cn/post/7077717940941881358)
 
 
-`package.json` 中：`pg-cli` 命令代替 `node ./bin/index.js`
+`package.json` 中：`pg-cli-demo` 命令代替 `node ./bin/index.js`
 ```json
 "bin": {
-  "pg-cli": "./bin/index.js"
+  "pg-cli-demo": "./bin/index.js"
 },
 ```
