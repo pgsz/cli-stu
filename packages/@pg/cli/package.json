@@ -1,15 +1,15 @@
 {
-  "name": "@mvc/cli",
-  "version": "0.1.0",
-  "description": "mvc cli",
+  "name": "pg-cli-v3",
+  "version": "0.4.0",
+  "description": "pg-cli脚手架的自我学习",
   "bin": {
-    "mvc": "bin/mvc.js"
+    "pg-cli-v3": "bin/index.js"
   },
   "keywords": [
-    "cli"
+    "cli",
+    "pg-cli"
   ],
-  "author": "woai3c <411020382@qq.com>",
-  "homepage": "https://github.com/woai3c/mini-cli",
+  "author": "彭光",
   "license": "MIT",
   "main": "lib/cli.js",
   "directories": {
@@ -20,22 +20,19 @@
     "lib"
   ],
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/woai3c/mini-cli.git"
+    "type": "",
+    "url": ""
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "bugs": {
-    "url": "https://github.com/woai3c/mini-cli/issues"
-  },
   "dependencies": {
-    "@mvc/cli-plugin-babel": "^0.1.0",
-    "@mvc/cli-plugin-linter": "^0.1.0",
-    "@mvc/cli-plugin-router": "^0.1.0",
-    "@mvc/cli-plugin-vue": "^0.1.0",
-    "@mvc/cli-plugin-vuex": "^0.1.0",
-    "@mvc/cli-plugin-webpack": "^0.1.0",
+    "@pg/cli-plugin-babel": "^0.1.0",
+    "@pg/cli-plugin-linter": "^0.1.0",
+    "@pg/cli-plugin-router": "^0.1.0",
+    "@pg/cli-plugin-vue": "^0.1.0",
+    "@pg/cli-plugin-vuex": "^0.1.0",
+    "@pg/cli-plugin-webpack": "^0.1.0",
     "chalk": "^4.1.0",
     "commander": "^7.0.0",
     "deepmerge": "^4.2.2",

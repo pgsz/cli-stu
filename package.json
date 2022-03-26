@@ -4,7 +4,7 @@
   "description": "pg-cli脚手架的自我学习",
   "main": "index.js",
   "workspaces": [
-    "packages/@mvc/*"
+    "packages/@pg/*"
   ],
   "private": true,
   "license": "MIT",

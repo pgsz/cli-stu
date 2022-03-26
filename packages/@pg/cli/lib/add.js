@@ -14,7 +14,7 @@ async function add(name) {
 
     let answers = {}
     try {
-        const pluginPrompts = require(`@mvc/cli-plugin-${name}/prompts`)
+        const pluginPrompts = require(`@pg/cli-plugin-${name}/prompts`)
         answers = await inquirer.prompt(pluginPrompts)
     } catch (error) {
         console.log(error)
@@ -22,7 +22,7 @@ async function add(name) {
 
     const generator = new Generator(pkg, targetDir, await readFiles(targetDir))
     const pm = new PackageManager(targetDir, answers.packageManager)
-    require(`@mvc/cli-plugin-${name}/generator`)(generator, answers)
+    require(`@pg/cli-plugin-${name}/generator`)(generator, answers)
 
     await generator.generate()
     // 下载依赖

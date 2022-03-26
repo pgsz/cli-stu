@@ -3,8 +3,9 @@ const program = require('commander')
 const create = require('../lib/create')
 const add = require('../lib/add')
 
+program.version(require('../package.json').version)
+
 program
-.version('0.1.0')
 .command('create <name>')
 .description('create a new project')
 .action(name => { 
