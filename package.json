@@ -18,8 +18,11 @@
       "commit-msg": "node scripts/verify-commit.js"
     }
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "cli",
+    "pg-cli"
+  ],
+  "author": "彭光",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",
