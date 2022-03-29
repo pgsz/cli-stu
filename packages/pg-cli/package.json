@@ -1,0 +1,60 @@
+{
+  "name": "pg-cli-v3",
+  "version": "0.0.4",
+  "description": "pg-cli脚手架的学习",
+  "keywords": [
+    "cli",
+    "pg-cli"
+  ],
+  "author": "pgsz <962797832@qq.com>",
+  "bin": {
+    "pg-cli-v3": "./bin/index.js"
+  },
+  "homepage": "https://github.com/pgsz/cli-stu#readme",
+  "license": "ISC",
+  "main": "lib/pg-cli.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmmirror.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pgsz/cli-stu.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/pgsz/cli-stu/issues"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^7.0.0",
+    "deepmerge": "^4.2.2",
+    "ejs": "^3.1.6",
+    "execa": "^5.0.0",
+    "fs-extra": "^9.1.0",
+    "globby": "^11.0.2",
+    "inquirer": "^7.3.3",
+    "isbinaryfile": "^4.0.6",
+    "javascript-stringify": "^2.0.1",
+    "lodash.clonedeep": "^4.5.0",
+    "node-fetch": "^2.6.1",
+    "pg-cli-plugin-babel": "^0.0.1",
+    "pg-cli-plugin-linter": "^0.0.1",
+    "pg-cli-plugin-router": "^0.0.1",
+    "pg-cli-plugin-vue": "^0.0.1",
+    "pg-cli-plugin-vuex": "^0.0.1",
+    "pg-cli-plugin-webpack": "^0.0.0",
+    "read-pkg": "^2.0.0",
+    "readline": "^1.3.0",
+    "recast": "^0.20.4",
+    "vue-codemod": "0.0.5"
+  }
+}

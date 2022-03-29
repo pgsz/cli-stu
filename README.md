@@ -31,6 +31,42 @@
 
 ### v3
 
-  - 讲项目拆分为 monorepo 的组织方法
+  - 将项目拆分为 monorepo 的组织方法
+    - monorepo：单一代码库，在版本控制系统的单个代码库里包含了许多项目的代码；代码可能相关，但通常在逻辑上是独立的，可能由不同的团队维护
+      - 可见性、跟简单的依赖关系管理、唯一依赖源、一致性、共享时间线、原子提交、统一的CI/CD、统一的构建等
+      - 性能差、破坏主线、学习曲线、大量的数据、所有权等
+    - multirepo：多代码库，每个项目存储在一个完全独立的、版本控制的代码库中
+  
+  [lerna多包管理实践](https://juejin.cn/post/6844904194999058440)
+  [lerna官网](https://lerna.js.org/)
+  [lerna github文档](https://github.com/lerna/lerna#readme)
+  ```
+  npm install lerna
+
+  lerna init 
+
+  lerna create  xxx
+
+  <!-- 将本地或者远程的包作为依赖项添加到当前的packages中，每次只能添加一个包 -->
+  lerna add xxx --scope=xxx
+
+  <!-- 安装所有packages的依赖项并且连接本地包的交叉依赖项 -->
+  lerna bootstrap
+  ```
+
+  ```
+    ├─packages
+    │  ├─@pg
+    │  │  ├─cli # 核心插件
+    │  │  ├─cli-plugin-babel # babel 插件
+    │  │  ├─cli-plugin-linter # linter 插件
+    │  │  ├─cli-plugin-router # router 插件
+    │  │  ├─cli-plugin-vue # vue 插件
+    │  │  ├─cli-plugin-vuex # vuex 插件
+    │  │  └─cli-plugin-webpack # webpack 插件
+    └─scripts # commit message 验证脚本 和项目无关 不需关注
+    │─lerna.json
+    |─package.json
+  ```
 
   - 新增 add 命令，通过 pg-cli-v3 add xxx 命令的方式添加插件
