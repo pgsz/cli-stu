@@ -1,4 +1,5 @@
 module.exports = (generator) => {
+    // 调用 new Generator 中的方法 在 pg-cli/lib/Generator.js
     generator.extendPackage({
         babel: {
             presets: ['@babel/preset-env'],

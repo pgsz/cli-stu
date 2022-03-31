@@ -14,6 +14,8 @@ const transformJS = {
             return null
         }
     },
+    // 第二个参数：过滤的方法函数
+    // 4: 文本缩进空格
     write: ({ value }) => `module.exports = ${stringifyJS(value, null, 4)}`,
 }
 

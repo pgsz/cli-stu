@@ -21,7 +21,7 @@ const migrateWindowsConfigPath = file => {
     if (process.platform !== 'win32') {
         return
     }
-    // C:\Users\pengguang\AppData\Roaming
+    // AppData 文件夹： C:\Users\pengguang\AppData\Roaming
     const appData = process.env.APPDATA
     if (appData) {
         const rcDir = path.join(appData, 'vue')
@@ -47,6 +47,7 @@ const migrateWindowsConfigPath = file => {
 exports.getRcPath = file => {
     migrateWindowsConfigPath(file)
     return (
+        // undefined
         process.env.VUE_CLI_CONFIG_PATH
     || xdgConfigPath(file)
     // window: 走这  C:\Users\pengguang\file

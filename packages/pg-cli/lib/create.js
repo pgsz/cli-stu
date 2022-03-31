@@ -13,13 +13,12 @@ const PackageManager = require('./PackageManager')
 
 async function create(name) {
     const targetDir = path.join(process.cwd(), name)
-    // 
-    // 如果目标目录已存在，询问是覆盖还是合并
+
+    // 如果目标目录已存在，询问是覆盖、合并还是取消
     if (fs.existsSync(targetDir)) {
         // 清空控制台
         clearConsole()
         
-        inquirer.prompt
         const { action } = await inquirer.prompt([
             {
                 name: 'action',
@@ -44,7 +43,7 @@ async function create(name) {
     }
 
     const creator = new Creator()
-    // 获取各个模块的交互提示语
+    // 获取各个模块的文件 为后续交互注入提示语
     const promptModules = getPromptModules()
     // 注入提示语
     const promptAPI = new PromptModuleAPI(creator)
@@ -72,7 +71,7 @@ async function create(name) {
         })
     }
 
-    // 保存哪个包管理 yarn/npm
+    // 保存哪个包管理 yarn/npm  第一次时会出现
     if (answers.packageManager) {
         saveOptions({
             packageManager: answers.packageManager,
@@ -84,6 +83,9 @@ async function create(name) {
         log()
         log(`Preset ${chalk.yellow(answers.saveName)} saved in ${chalk.yellow(rcPath)}`)
     }
+    
+    // 上面是 交互提示语 和 用户选择
+    // 下面开始 根据用户选择，进行文件生成
 
     // 判断使用哪个 包管理源 npm/yarn
     const pm = new PackageManager(targetDir, answers.packageManager)
@@ -97,7 +99,7 @@ async function create(name) {
     }
     
     /**
-     * 1:往 pkg 注入依赖，形成最终的 package.json 模板
+     * 1: 往 pkg 注入依赖，形成最终的 package.json 模板
      * 2：调用 render 生成对应的模板，保存到 files 里
      * 3：根据 files 生成对应的文件
     */

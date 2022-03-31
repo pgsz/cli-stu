@@ -9,6 +9,7 @@ class ConfigTransform {
         let file
 
         if (!file) {
+            // { type: 'js', filename: 'babel.config.js' }
             file = this.getDefaultFile()
         }
 

@@ -59,16 +59,26 @@ const ensureEOL = str => {
 
 class Generator {
     constructor(pkg, context) {
+        // 最终的 package.json 的模板
+        // 中间会注入很多内容，最后会根据 defaultConfigTransforms 对应的文件，并删除对应的字段。
         this.pkg = pkg
+        // main.js 中 new Vue 实例的选项
         this.rootOptions = {}
+        // main.js 中 导入语句
         this.imports = {}
+        // 所有需要生成文件的集合，最终根据此字段来生成文件及内容
         this.files = {}
+        // 入口文件
         this.entryFile = `src/main.js`
+        // 模板文件中间件： [ ()=> {}, ... ]
         this.fileMiddlewares = []
+        // 项目路径
         this.context = context
+        // 中间件文件的集合 { babel: ConfigTransform { fileDescriptor: { js: [Array] } }, ... }
         this.configTransforms = {}
     }
 
+    // 合并对应的依赖项，向 pkg 中注入依赖
     extendPackage(fields) {
         const pkg = this.pkg
         for (const key in fields) {
@@ -143,14 +153,22 @@ class Generator {
             await middleware(files, ejs.render)
         }
 
-        // normalize file paths on windows
-        // all paths are converted to use / instead of \
-        // 将反斜杠 \ 转换为正斜杠 /
+        // 此时 files： { src/App.vue: '模板', xxx }
+
+        // windows上规范文件路径：将反斜杠 \ 转换为正斜杠 /
         normalizeFilePaths(files)
 
         // 处理 import 语句的导入和 new Vue() 选项的注入
         // vue-codemod 库，对代码进行解析得到 AST，再将 import 语句和根选项注入
+        // this.imports['src/main.js'].add('import xxx from \'./xxx\'')
         Object.keys(files).forEach(file => {
+            // this.imports: 
+            // {
+            //     'src/main.js': Set(2) {
+            //         "import router from './router'",
+            //         "import store from './store'"   
+            //     }
+            // }
             let imports = this.imports[file]
             imports = imports instanceof Set ? Array.from(imports) : imports
             if (imports && imports.length > 0) {
@@ -161,6 +179,8 @@ class Generator {
                 )
             }
 
+            // this.rootOptions:
+            // { 'src/main.js': Set(2) { 'router', 'store' } }
             let injections = this.rootOptions[file]
             injections = injections instanceof Set ? Array.from(injections) : injections
             if (injections && injections.length > 0) {
@@ -180,6 +200,18 @@ class Generator {
     // },
     // 提取出来变成 babel.config.js 文件
     extractConfigFiles() {
+        // {
+        //     babel: ConfigTransform { fileDescriptor: { js: [Array] } },
+        //     postcss: ConfigTransform {
+        //         fileDescriptor: { js: [Array], json: [Array], yaml: [Array] }
+        //     },
+        //     eslintConfig: ConfigTransform {
+        //         fileDescriptor: { js: [Array], json: [Array], yaml: [Array] }
+        //     },
+        //     jest: ConfigTransform { fileDescriptor: { js: [Array] } },
+        //     browserslist: ConfigTransform { fileDescriptor: { lines: [Array] } },
+        //     vue: ConfigTransform { fileDescriptor: { js: [Array] } }
+        // }
         const configTransforms = {
             ...defaultConfigTransforms,
             ...this.configTransforms,
@@ -199,29 +231,40 @@ class Generator {
                 const { content, filename } = res
                 // 如果文件不是以 \n 结尾，则补上 \n
                 this.files[filename] = ensureEOL(content)
+                // 删除对应项
                 delete this.pkg[key]
             }
         }
 
+        // note: 为什么有的通过模板的形式 有的通过extract生成？
         extract('vue')
         extract('babel')
     }
 
+    // 生成文件所需模板
     render(source, additionalData = {}, ejsOptions = {}) {
         // 获取调用 generator.render() 函数的文件的父目录路径 
         const baseDir = extractCallDir()
+        // C:\Users\pengguang\Desktop\learning\cli-stu\cli-V3\packages\pg-cli-plugin-vue\generator\template
         source = path.resolve(baseDir, source)
         this._injectFileMiddleware(async (files) => {
             const data = this._resolveData(additionalData)
             // https://github.com/sindresorhus/globby
             const globby = require('globby')
             // 读取目录中所有的文件
+            // [
+            //   'src/App.vue',
+            //   'src/views/About.vue',
+            //   'src/views/Home.vue',
+            //   'src/router/index.js'
+            // ]
             const _files = await globby(['**/*'], { cwd: source, dot: true })
             for (const rawPath of _files) {
                 const sourcePath = path.resolve(source, rawPath)
-                // 解析文件内容
+                // 解析文件内容，生成模板
                 const content = this.renderFile(sourcePath, data, ejsOptions)
                 // only set file if it's not all whitespace, or is a Buffer (binary files)
+                // 同 Array.isArray()
                 if (Buffer.isBuffer(content) || /[^\s]/.test(content)) {
                     files[rawPath] = content
                 }
@@ -236,20 +279,21 @@ class Generator {
     // 合并选项
     _resolveData(additionalData) {
         return { 
-            options: this.options,
+            // options: this.options,
             rootOptions: this.rootOptions,
             ...additionalData,
         }
     }
 
     renderFile(name, data, ejsOptions) {
-        // 如果是二进制文件，直接将读取结果返回
+        // 如果是二进制文件，直接将读取结果返回，如图片等
         if (isBinaryFileSync(name)) {
             return fs.readFileSync(name) // return buffer
         }
 
         // 返回文件内容
         const template = fs.readFileSync(name, 'utf-8')
+        // 使用 ejs：可以结合变量来决定是否渲染某些代码
         return ejs.render(template, data, ejsOptions)
     }
 
@@ -301,6 +345,8 @@ function extractCallDir() {
 
     const fileName = matchResult[1]
     // 获取对应文件的目录
+    console.log(fileName)
+    // 获取对应的文件目录  C:\Users\pengguang\Desktop\learning\cli-stu\cli-V3\packages\pg-cli-plugin-vue\generator
     return path.dirname(fileName)
 }
 

@@ -8,6 +8,10 @@ module.exports = (generator) => {
         devDependencies: {
             'vue-template-compiler': '^2.6.12',
         },
+        // vue.config.js 文件模板
+        // vue: {
+        //     ...
+        // },
     })
 
     generator.extendPackage({

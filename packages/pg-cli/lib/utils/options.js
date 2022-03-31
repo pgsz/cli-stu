@@ -27,6 +27,7 @@ exports.defaults = {
     packageManager: undefined,
     useTaobaoRegistry: undefined,
     presets: {
+        // 默认配置，后续自定义保存也是在此
         default: { ...exports.defaultPreset },
     },
 }
@@ -83,6 +84,17 @@ exports.saveOptions = (toSave) => {
 }
 
 exports.savePreset = (name, preset) => {
+    // preset:
+    // {
+    //   preset: '__manual__',
+    //   features: [ 'babel', 'router', 'vuex', 'linter' ],
+    //   historyMode: true,
+    //   eslintConfig: 'airbnb',
+    //   lintOn: [ 'save' ],
+    //   save: true,
+    //   saveName: 'pgTest'
+    // }
+    // 去除无用字段
     preset = filter(preset)
     const presets = cloneDeep(exports.loadOptions().presets || {})
     presets[name] = preset
@@ -90,6 +102,7 @@ exports.savePreset = (name, preset) => {
     return exports.saveOptions({ presets })
 }
 
+// 去除无用字段
 function filter(preset, keys = ['preset', 'save', 'saveName', 'packageManager']) {
     preset = { ...preset }
     keys.forEach(key => {

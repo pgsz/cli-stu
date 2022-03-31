@@ -38,7 +38,7 @@ class Creator {
 
     // 读取现有配置项返回配置好的选项
     getPresets() {
-        // 读取现有的配置
+        // 读取现有的配置，即手动保存的
         const savedOptions = loadOptions()
         return { ...savedOptions.presets, ...defaults.presets }
     }
