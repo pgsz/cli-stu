@@ -70,3 +70,9 @@
   ```
 
   - 新增 add 命令，通过 pg-cli-v3 add xxx 命令的方式添加插件
+
+
+
+### v4
+
+- 抽离 webpack
