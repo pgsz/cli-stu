@@ -10,6 +10,7 @@ const { savePreset, rcPath } = require('./utils/options')
 const { log } = require('./utils/logger')
 const { saveOptions } = require('./utils/options')
 const PackageManager = require('./PackageManager')
+const writeFileTree = require('./utils/writeFileTree')
 
 async function create(name) {
     const targetDir = path.join(process.cwd(), name)
@@ -105,7 +106,23 @@ async function create(name) {
     */
     const generator = new Generator(pkg, targetDir)
     // 填入 vue webpack 必选项，无需用户选择
-    answers.features.unshift('vue', 'webpack')
+    // answers.features.unshift('vue', 'webpack')
+    // 填入 service 必填项
+    answers.features.unshift('service')
+
+    answers.features.forEach(feature => {
+        if (feature === 'service') {
+            pkg.devDependencies['pg-cli-service'] = '~0.0.1'
+        } else {
+            pkg.devDependencies[`pg-cli-plugin-${feature}`] = '~0.0.1'
+        }
+    })
+
+    await writeFileTree(targetDir, {
+        'package.json': JSON.stringify(pkg, null, 2),
+    })
+
+    await pm.install()
 
     // 根据用户选择的选项加载相应的模块，在 package.json 写入对应的依赖项
     // 并且将对应的 template 模块渲染

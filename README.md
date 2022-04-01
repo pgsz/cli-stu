@@ -75,4 +75,4 @@
 
 ### v4
 
-- 抽离 webpack
+- 抽离 webpack，将 vue 和 webpack 形成 pg-cli-service

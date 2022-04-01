@@ -1,0 +1,37 @@
+{
+  "name": "pg-cli-service",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "bin": {
+    "pg-cli-service": "bin/pg-cli-service.js"
+  },
+  "keywords": [
+    "pg",
+    "pg-cli",
+    "pg-cli-service"
+  ],
+  "author": "pgsz <962797832@qq.com>",
+  "homepage": "https://github.com/pgsz/cli-stu#readme",
+  "license": "ISC",
+  "main": "lib/pg-cli-service.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "http://af.hikvision.com.cn/artifactory/api/npm/npm-down/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pgsz/cli-stu.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/pgsz/cli-stu/issues"
+  }
+}

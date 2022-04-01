@@ -20,8 +20,12 @@ async function add(name) {
 
     clearConsole()
 
-    let answers = {}
+    pkg.devDependencies[`pg-cli-plugin-${name}`] = '~0.0.1'
 
+    const pm = new PackageManager(targetDir, answers.packageManager)
+    await pm.install()
+
+    let answers = {}
     // 交互提示语
     if (name === 'linter' || name === 'router') {
         try {
@@ -33,7 +37,6 @@ async function add(name) {
     }
 
     const generator = new Generator(pkg, targetDir)
-    const pm = new PackageManager(targetDir, answers.packageManager)
     require(`pg-cli-plugin-${name}/generator`)(generator, answers)
 
     await generator.generate()
