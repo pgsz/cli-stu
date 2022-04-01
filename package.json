@@ -3,13 +3,9 @@
   "version": "1.0.0",
   "description": "pg-cli脚手架的自我学习",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "",
-    "url": ""
-  },
+  "workspaces": [
+    "packages/pg-*"
+  ],
   "husky": {
     "hooks": {
       "commit-msg": "node scripts/verify-commit.js"
@@ -19,8 +15,32 @@
     "cli",
     "pg-cli"
   ],
-  "author": "彭光",
-  "license": "ISC",
+  "license": "ISC",  
+  "author": "pgsz <962797832@qq.com>",
+  "bin": {
+    "pg-cli": "./bin/index.js"
+  },
+  "homepage": "https://github.com/pgsz/cli-stu#readme",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmmirror.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pgsz/cli-stu.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/pgsz/cli-stu/issues"
+  },
   "devDependencies": {
     "eslint": "^7.20.0",
     "eslint-config-airbnb-base": "^14.2.1",
