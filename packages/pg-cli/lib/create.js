@@ -114,8 +114,11 @@ async function create(name) {
         require(`pg-cli-plugin-${feature}/generator`)(generator, answers)
     })
 
+    log('\n正在下载文件...\n')
     // 生成文件
     await generator.generate()
+
+    log('\n文件下载完成！\n')
 
     // 下载依赖
     await pm.install()

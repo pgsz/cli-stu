@@ -1,6 +1,6 @@
 {
-  "name": "pg-cli-v3",
-  "version": "0.0.4",
+  "name": "pg-cli",
+  "version": "1.0.0",
   "description": "pg-cli脚手架的学习",
   "keywords": [
     "cli",
@@ -8,7 +8,7 @@
   ],
   "author": "pgsz <962797832@qq.com>",
   "bin": {
-    "pg-cli-v3": "./bin/index.js"
+    "pg-cli": "./bin/index.js"
   },
   "homepage": "https://github.com/pgsz/cli-stu#readme",
   "license": "ISC",
@@ -51,7 +51,7 @@
     "pg-cli-plugin-router": "^0.0.1",
     "pg-cli-plugin-vue": "^0.0.1",
     "pg-cli-plugin-vuex": "^0.0.1",
-    "pg-cli-plugin-webpack": "^0.0.0",
+    "pg-cli-plugin-webpack": "^0.0.1",
     "read-pkg": "^2.0.0",
     "readline": "^1.3.0",
     "recast": "^0.20.4",
