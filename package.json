@@ -1,5 +1,5 @@
 {
-  "name": "pg-cli",
+  "name": "@pgsz/pg-cli",
   "version": "1.0.0",
   "description": "pg-cli脚手架的自我学习",
   "main": "index.js",
@@ -29,7 +29,7 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "https://registry.npmmirror.com/"
+    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
